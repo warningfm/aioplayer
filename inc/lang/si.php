@@ -1,0 +1,16 @@
+<?php $lang=array (
+  'loading-message' => 'Nalagam, prosimo počakajte...',
+  'ui-settings' => 'Izberite kvaliteto prenosa',
+  'ui-channels' => 'Seznam Kanalov',
+  'ui-play' => 'Začni predvajanje',
+  'ui-stop' => 'Prekini predvajanje',
+  'ui-volume-circle' => 'Povlecite za spremembo glasnosti',
+  'ui-playlists' => 'Odprite z priljubljenim predvajalnikom',
+  'status-init' => 'Nalagam {STREAM}...',
+  'status-playing' => 'Predvajam {STREAM}.',
+  'status-stopped' => 'Predvajalnik ustavljen.',
+  'status-volume' => 'Glasnost: {LEVEL}',
+  'status-muted' => 'Predvajalnik utišan.',
+  'share' => 'Delite',
+  'twitter-share' => 'Trenutno poslušam {TRACK}!',
+); ?>
