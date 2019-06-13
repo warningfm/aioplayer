@@ -1,0 +1,18 @@
+{
+  "author":   "Jaka Prašnikar",
+  "name":     "Default",
+  "schemes":  [
+    {
+      "compile": "scss/basic.style.scss",
+      "name":    "Default Light",
+      "style":   "default.light.css"
+    },
+    {
+      "compile": "scss/basic.dark.scss",
+      "name":    "Default Dark",
+      "style":   "default.dark.css"
+    }
+  ],
+  "template": "template.html",
+  "url":      "https://prahec.com"
+}

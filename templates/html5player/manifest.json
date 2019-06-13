@@ -1,0 +1,13 @@
+{
+  "author":   "Jaka Prašnikar",
+  "name":     "HTML5 Radio Player",
+  "schemes":  [
+    {
+      "compile": "scss/html5-radio-skin.scss",
+      "name":    "HTML5 Radio Player",
+      "style":   "default.html5.css"
+    }
+  ],
+  "template": "template.html",
+  "url":      "https://prahec.com"
+}

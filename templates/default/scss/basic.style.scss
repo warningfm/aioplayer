@@ -1,0 +1,974 @@
+// Imports (other required SCSS files)
+@import 'reset-browsers.scss';
+
+// Configure SASS options (Colors, Animations, Fonts etc...)
+$font-family: 'Roboto', sans-serif;
+$ease-out: cubic-bezier(0.25, 0.8, 0.25, 1);
+$ease-in: cubic-bezier(0.55, 0, 0.55, 0.2);
+
+// Other options
+$base-font-size: 10pt; // Base font size
+$font-bold: 400; // Bold font weight
+$font-light: 300; // Light font weight
+
+// Configure color (for AIO Radio Control Panel compiler, this must be commented out!)
+//$accent-color: #62a8ea;
+// ==================================================================================================
+
+// Body & HTML styles
+body, html {
+    font-family:             $font-family;
+    font-weight:             $font-light;
+    font-size:               $base-font-size;
+    padding:                 0;
+    line-height:             normal;
+    margin:                  0;
+    background-color:        #eaeaea;
+
+    // Improve Font rendering (attempt)
+    -webkit-font-smoothing:  antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering:          optimizeLegibility;
+}
+
+// Basic HTML styles
+a {
+    text-decoration: none;
+    color:           inherit;
+    outline-style:   none;
+    outline-width:   0;
+}
+
+b, strong {
+    font-weight: $font-bold;
+}
+
+.css-hint {
+    position: relative;
+
+    &:before {
+        bottom:                      -2px;
+        margin-bottom:               -10px;
+        left:                        25px;
+        border:                      solid transparent;
+        content:                     " ";
+        height:                      0;
+        width:                       0;
+        position:                    absolute;
+        pointer-events:              none;
+        border-color:                transparent;
+        border-bottom-color:         rgba(#000, 0.85);
+        border-width:                5px;
+        margin-left:                 -5px;
+        z-index:                     14;
+
+        // Performance & rendering fix
+        -webkit-backface-visibility: hidden;
+        backface-visibility:         hidden;
+        transform:                   translate3d(0, 0, 0);
+        -webkit-transform:           translate3d(0, 0, 0);
+    }
+
+    &:after {
+        background:                  #111;
+        background:                  rgba(#000, 0.85);
+        border-radius:               3px;
+        color:                       #fff;
+        font-size:                   $base-font-size;
+        content:                     attr(data-title);
+        display:                     block;
+        left:                        0;
+        bottom:                      -28px;
+        padding:                     6px 8px;
+        position:                    absolute;
+        margin-bottom:               2px;
+        z-index:                     15;
+
+        // Performance & rendering fix
+        -webkit-backface-visibility: hidden;
+        backface-visibility:         hidden;
+        transform:                   translate3d(0, 0, 0);
+        -webkit-transform:           translate3d(0, 0, 0);
+    }
+
+    &:after, &:before {
+        transition:         all 350ms $ease-out;
+        -webkit-transition: all 350ms $ease-out;
+        transform:          scale(0.75);
+        -webkit-transform:  scale(0.75);
+        opacity:            0;
+        visibility:         hidden;
+        pointer-events:     none;
+    }
+
+    &:hover {
+
+        &:before, &:after {
+            transform:         scale(1);
+            -webkit-transform: scale(1);
+            opacity:           1;
+            visibility:        visible;
+            margin-bottom:     0;
+        }
+
+    }
+
+}
+
+// Full screen preloader
+.preloader {
+    display:            block;
+    position:           absolute;
+    left:               0;
+    right:              0;
+    top:                0;
+    bottom:             0;
+    text-align:         center;
+    font-size:          1.07em;
+    color:              #2f2f2f;
+    background:         rgba(#fafafa, 0.95);
+    transition:         all 500ms $ease-out;
+    -webkit-transition: all 500ms $ease-out;
+    z-index:            999;
+
+    &.loadComplete { // Hide after load, animated
+        opacity:    0;
+        visibility: hidden;
+    }
+
+    .text_area {
+        display:    block;
+        position:   absolute;
+        height:     50px;
+        left:       0;
+        right:      0;
+        top:        40%;
+        margin-top: -25px;
+    }
+
+}
+
+/* ================================================================================================== */
+// Header stylesheet
+.header {
+    display:    block;
+    height:     50px;
+    background: $accent-color;
+    color:      #fff;
+
+    // Change scroll bars design in Chrome/Webkit
+    ::-webkit-scrollbar {
+        width:  8px;
+        height: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background:    transparent;
+        border-radius: 2px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background-color: lighten($accent-color, 20%);
+        border-radius:    2px;
+
+        &:hover {
+            background: lighten($accent-color, 25%);
+        }
+    }
+
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background: lighten($accent-color, 15%);
+    }
+
+    // Logo, simple div
+    .logo {
+        float:       left;
+        display:     inline-block;
+        margin:      0 0 0 8px;
+        height:      50px;
+        line-height: 50px;
+
+        img {
+            vertical-align: middle;
+        }
+    }
+
+    // Menus, including setup etc...
+    ul {
+        position:   absolute;
+        list-style: none;
+        padding:    0;
+        margin:     0;
+        right:      0;
+        font-size:  0; /* FIX SPACING */
+        background: $accent-color;
+
+        > li {
+            position: relative;
+            display:  inline-block;
+            padding:  0;
+            margin:   0;
+
+            > a {
+                display:            inline-block;
+                width:              55px;
+                height:             50px;
+                transition:         background-color 150ms $ease-out;
+                -webkit-transition: background-color 150ms $ease-out;
+                text-align:         center;
+                line-height:        50px;
+
+                img {
+                    vertical-align: middle;
+                }
+
+                &:hover, &.active {
+                    background: lighten($accent-color, 6%);
+                }
+
+            }
+
+            // Settings
+            > ul {
+                position:                    absolute;
+                z-index:                     99;
+                top:                         75%;
+                right:                       0;
+                font-size:                   $base-font-size;
+                background:                  lighten($accent-color, 6%);
+                min-width:                   200px;
+                opacity:                     0;
+                visibility:                  hidden;
+                border-bottom-left-radius:   3px;
+                border-bottom-right-radius:  3px;
+                transition:                  top 250ms $ease-out, opacity 350ms $ease-out, visibility 350ms $ease-out;
+                -webkit-transition:          top 250ms $ease-out, opacity 350ms $ease-out, visibility 350ms $ease-out;
+                box-shadow:                  0 3px 5px rgba(#000, 0.15);
+
+                // Add scroll bars if we go over content
+                overflow-y:                  auto;
+                overflow-x:                  hidden;
+                max-height:                  210px;
+
+                // Performance & rendering fix
+                -webkit-backface-visibility: hidden;
+                backface-visibility:         hidden;
+                transform:                   translate3d(0, 0, 0);
+                -webkit-transform:           translate3d(0, 0, 0);
+
+                &.active {
+                    visibility: visible;
+                    opacity:    1;
+                    top:        100%;
+                }
+
+                li {
+                    display: block;
+                    margin:  0;
+                    padding: 0;
+
+                    > a {
+                        display:            block;
+                        padding:            10px 15px;
+                        line-height:        normal;
+                        width:              auto;
+                        height:             auto;
+                        text-align:         left;
+                        color:              lighten($accent-color, 30%);
+                        text-decoration:    none;
+                        white-space:        nowrap;
+                        transition:         none;
+                        -webkit-transition: none;
+
+                        &:hover {
+                            background: rgba(#fff, 0.15);
+                        }
+
+                        &.active {
+                            color:       #fff;
+                            font-weight: $font-bold;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    // End header
+}
+
+/* ================================================================================================== */
+// Main Container
+.main-container {
+    font-size:   0; // Fight inline-block spacing
+    margin:      0 auto;
+    overflow:    hidden;
+    white-space: nowrap;
+    max-width:   720px;
+
+    // Views (Artist Image, Playing Artist, Title and Song time)
+    .view {
+        font-size:      $base-font-size;
+        vertical-align: top;
+        display:        inline-block;
+        width:          100%;
+        margin:         40px 0 35px;
+        text-align:     center;
+        transition:     margin-left $ease-out 550ms;
+        white-space:    normal;
+
+        // Image, align middle vertically
+        .artist-image {
+            display:        inline-block;
+            position:       relative;
+            margin:         0 10px;
+            width:          140px;
+            height:         140px;
+            vertical-align: middle;
+            overflow:       hidden;
+            background:     rgba(lighten($accent-color, 50%), 0.75);
+            box-shadow:     2px 2px 5px rgba(#000, 0.1);
+
+            .share-area {
+                position:           absolute;
+                z-index:            5;
+                top:                0;
+                right:              0;
+                left:               0;
+                bottom:             0;
+                opacity:            0;
+                visibility:         hidden;
+                background:         rgba(#fff, 0.85);
+                transition:         all 200ms $ease-out;
+                -webkit-transition: all 200ms $ease-out;
+                transform:          scale(1.5);
+                -webkit-transform:  scale(1.5);
+
+                a {
+                    margin:             0 3px;
+                    transition:         opacity 200ms $ease-out;
+                    -webkit-transition: opacity 200ms $ease-out;
+                    opacity:            0.75;
+
+                    &:hover {
+                        opacity: 1;
+                    }
+
+                    &.facebook-share {
+                        position:           absolute;
+                        left:               -100px;
+                        transition:         left 400ms $ease-out;
+                        -webkit-transition: left 400ms $ease-out;
+                    }
+
+                    &.twitter-share {
+                        position:           absolute;
+                        right:              -100px;
+                        transition:         right 400ms $ease-out;
+                        -webkit-transition: right 400ms $ease-out;
+                    }
+
+                }
+
+                span {
+                    display:    block;
+                    font-size:  1.24em;
+                    text-align: center;
+                    margin:     40px 0 10px;
+                }
+            }
+
+            .artist-img {
+                z-index:            1;
+                position:           absolute;
+                top:                0;
+                transition:         all 400ms $ease-out;
+                -webkit-transition: all 400ms $ease-out;
+            }
+
+            // Hover effects
+            &:hover {
+
+                .share-area {
+                    opacity:           1;
+                    visibility:        visible;
+                    transform:         scale(1);
+                    -webkit-transform: scale(1);
+
+                    a.facebook-share {
+                        left:              25px;
+                        transform:         rotate(360deg);
+                        -webkit-transform: rotate(360deg);
+                    }
+
+                    a.twitter-share {
+                        right:             25px;
+                        transform:         rotate(360deg);
+                        -webkit-transform: rotate(360deg);
+                    }
+
+                }
+
+                .artist-img {
+                    transform:         scale(1.15);
+                    -webkit-transform: scale(1.15);
+                }
+
+            }
+
+            // Disabled state (NEW 1.26)
+            &.sharing_disabled {
+                .share-area {
+                    display: none;
+                }
+                &:hover {
+                    .artist-img {
+                        transform:         scale(1);
+                        -webkit-transform: scale(1);
+                    }
+                }
+            }
+
+            .artist-preload {
+                position:          absolute;
+                right:             0;
+                left:              0;
+                height:            4px;
+                bottom:            0;
+                z-index:           6;
+                background-color:  #159756;
+                -webkit-animation: preloaderbackground linear 3s infinite;
+                animation:         preloaderbackground linear 3s infinite;
+
+                &:after, &:before {
+                    display:           block;
+                    position:          absolute;
+                    bottom:            0;
+                    z-index:           9;
+                    width:             0;
+                    height:            4px;
+                    background:        #afa;
+                    -webkit-animation: preloaderfront $ease-in 3s infinite;
+                    animation:         preloaderfront $ease-in 3s infinite;
+                    content:           '';
+                }
+
+                &:after {
+                    right: 50%;
+                }
+
+                &:before {
+                    left: 50%;
+                }
+
+            }
+        }
+
+        // Now the track info, middle valign
+        .onair {
+            display:        inline-block;
+            margin:         0 10px;
+            vertical-align: middle;
+            text-align:     left;
+            color:          #414141;
+            font-weight:    $font-bold;
+
+            a {
+                color: #414141;
+            }
+
+            .artist {
+                font-size: 2.2em;
+            }
+
+            .title {
+                font-size: 1.61em;
+            }
+
+            .time {
+                color:       #454545;
+                margin:      4px 0 0;
+                font-weight: $font-light;
+                font-size:   1.077em;
+            }
+
+        }
+
+    }
+
+    // History (since 1.15)
+    .view.history {
+        margin: 0;
+        height: 215px;
+
+        .table-scroll {
+            padding:    10px 15px;
+            display:    block;
+            overflow-y: auto;
+            overflow-x: hidden;
+            max-height: 195px;
+
+            // Change scroll bars design in Chrome/Webkit
+            &::-webkit-scrollbar {
+                width:  8px;
+                height: 8px;
+            }
+
+            /* Track */
+            &::-webkit-scrollbar-track {
+                background:    transparent;
+                border-radius: 2px;
+            }
+
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+                background-color: lighten($accent-color, 20%);
+                border-radius:    2px;
+
+                &:hover {
+                    background: lighten($accent-color, 25%);
+                }
+            }
+
+            &::-webkit-scrollbar-thumb:window-inactive {
+                background: lighten($accent-color, 15%);
+            }
+        }
+
+        table {
+            width:      100%;
+            text-align: left;
+            thead tr th {
+                font-weight: normal;
+                padding:     2px 5px 5px;
+            }
+            tr th, tr td {
+                padding: 4px 6px;
+                &.timeago {
+                    text-align:    right;
+                    min-width:     75px;
+                    padding-right: 6px;
+                }
+                &.history-artwork {
+                    width:        32px;
+                    text-align:   right;
+                    padding-left: 6px;
+                }
+                img {
+                    vertical-align: middle;
+                }
+            }
+
+            // Table row hover
+            tr:hover > td {
+                background: rgba(0, 0, 0, 0.05);
+            }
+        }
+
+    }
+    // END HISTORY
+
+}
+
+/* ================================================================================================== */
+// Now the player section
+.player {
+    padding:   5px 0;
+    max-width: 720px;
+    height:    68px;
+    margin:    0 auto;
+    position:  relative;
+
+    // Play/Stop
+    .playback {
+        position:   absolute;
+        left:       0;
+        padding:    0 10px;
+        width:      68px;
+        height:     68px;
+        text-align: center;
+
+        // Play and Stop buttons
+        .play, .stop {
+            cursor: pointer;
+            float:  left;
+
+            circle { // Fill SVG color with our primary color
+                fill:               $accent-color;
+                transition:         fill 200ms $ease-out;
+                -webkit-transition: fill 200ms $ease-out;
+                stroke-width:       0;
+            }
+
+            path {
+                fill: #fff;
+            }
+
+            // Hover effects
+            &:hover circle {
+                fill: lighten($accent-color, 10%);
+            }
+
+        }
+
+    }
+
+    // Volume control, including mute
+    .volume-control {
+        position:       absolute;
+        padding:        20px 10px;
+        vertical-align: middle;
+        left:           0;
+        right:          0;
+        height:         28px;
+        margin:         0 245px 0 90px;
+
+        // Mute/Unmute, well the icon left of bar
+        .volume-icon {
+            position:       absolute;
+            left:           10px;
+            vertical-align: middle;
+            cursor:         pointer;
+            height:         28px;
+        }
+
+        // Now the slider
+        .volume-slider {
+            position:       absolute;
+            vertical-align: middle;
+            left:           40px;
+            right:          0;
+            top:            50%;
+            margin-top:     -2px;
+
+            .vol-progress {
+                margin:     0 5px;
+                width:      100%;
+                height:     4px;
+                background: #ccc;
+                cursor:     pointer;
+
+                // Progressbar
+                .vol-bar {
+                    position:   relative;
+                    display:    block;
+                    height:     100%;
+                    background: $accent-color;
+                    width:      50%;
+                }
+
+                // Circle to push/pull
+                .circle-control {
+                    position:           absolute;
+                    top:                -4px;
+                    right:              -4px;
+                    display:            block;
+                    width:              11px;
+                    height:             11px;
+                    background:         $accent-color;
+                    border-radius:      50%;
+                    transition:         transform 250ms $ease-out;
+                    -webkit-transition: transform 250ms $ease-out;
+                }
+
+                &:hover .circle-control {
+                    cursor:            pointer;
+                    transform:         scale(1.4);
+                    -webkit-transform: scale(1.4);
+                }
+
+            }
+
+            // Status messages
+            .player-status {
+                color:      #6f6f6f;
+                position:   absolute;
+                text-align: center;
+                width:      100%;
+                top:        100%;
+                margin-top: 10px;
+            }
+
+        }
+
+    }
+
+    // Playlists for players, use sprite
+    .playlists {
+        display:        inline-block;
+        vertical-align: middle;
+        width:          220px;
+        float:          right;
+        height:         55px;
+        margin:         6px 5px 0 0;
+        text-align:     center;
+
+        // MSG
+        span {
+            color:   #6f6f6f;
+            display: block;
+            margin:  0 0 8px;
+        }
+
+        a {
+            display:            inline-block;
+            position:           relative;
+            top:                0;
+            margin:             0 6px;
+            transition:         all 200ms $ease-out;
+            -webkit-transition: all 200ms $ease-out;
+            opacity:            0.75;
+
+            &:hover {
+                opacity:           1;
+                transform:         scale(1.05);
+                -webkit-transform: scale(1.05);
+                top:               -4px;
+            }
+        }
+
+        // End playlists
+
+    }
+
+}
+
+// Animations
+@-webkit-keyframes preloaderbackground {
+    0%, 24.9% {
+        background-color: #159756;
+    }
+    25%, 49.9% {
+        background-color: #da4733;
+    }
+    50%, 74.9% {
+        background-color: #3b78e7;
+    }
+    75%, 100% {
+        background-color: #fdba2c;
+    }
+}
+
+@keyframes preloaderbackground {
+    0%, 24.9% {
+        background-color: #159756;
+    }
+    25%, 49.9% {
+        background-color: #da4733;
+    }
+    50%, 74.9% {
+        background-color: #3b78e7;
+    }
+    75%, 100% {
+        background-color: #fdba2c;
+    }
+}
+
+@-webkit-keyframes preloaderfront {
+    0% {
+        width:            0;
+        background-color: #da4733;
+    }
+    24.9% {
+        width:            50%;
+        background-color: #da4733;
+    }
+    25% {
+        width:            0;
+        background-color: #3b78e7;
+    }
+    49.9% {
+        width:            50%;
+        background-color: #3b78e7;
+    }
+    50% {
+        width:            0;
+        background-color: #fdba2c;
+    }
+    74.9% {
+        width:            50%;
+        background-color: #fdba2c;
+    }
+    75% {
+        width:            0%;
+        background-color: #159756;
+    }
+    100% {
+        width:            50%;
+        background-color: #159756;
+    }
+}
+
+@keyframes preloaderfront {
+    0% {
+        width:            0;
+        background-color: #da4733;
+    }
+    24.9% {
+        width:            50%;
+        background-color: #da4733;
+    }
+    25% {
+        width:            0;
+        background-color: #3b78e7;
+    }
+    49.9% {
+        width:            50%;
+        background-color: #3b78e7;
+    }
+    50% {
+        width:            0;
+        background-color: #fdba2c;
+    }
+    74.9% {
+        width:            50%;
+        background-color: #fdba2c;
+    }
+    75% {
+        width:            0%;
+        background-color: #159756;
+    }
+    100% {
+        width:            50%;
+        background-color: #159756;
+    }
+}
+
+// Responsive design
+@media (max-width: 620px) {
+    .main-container {
+        .view {
+            margin: 20px 0 15px;
+
+            .artist-image {
+                margin: 0 0 10px;
+            }
+
+            .onair {
+                display:    block;
+                text-align: center;
+                margin:     0 5px 10px;
+
+                .artist {
+                    display:   inline;
+                    font-size: 1.23em;
+
+                    &:after {
+                        content: ' - ';
+                    }
+                }
+
+                .title {
+                    display:   inline;
+                    font-size: 1.23em;
+                }
+
+                .time {
+                    display: none;
+                }
+
+            }
+        }
+    }
+}
+
+@media (min-height: 125px) and (max-height: 339px) and (min-width: 620px) {
+    .main-container {
+        .view {
+            margin: 20px 0 15px;
+
+            .artist-image {
+                width:  120px;
+                height: 120px;
+
+                img#artist-img {
+                    width:  120px !important;
+                    height: 120px !important;
+                }
+
+                // Change position of hovered facebook/twitter buttons
+                &:hover .share-area a {
+
+                    &.facebook {
+                        left: 18px;
+                    }
+
+                    &.twitter {
+                        right: 18px;
+                    }
+
+                }
+
+            }
+        }
+
+        .view.history {
+            height: 155px;
+        }
+    }
+
+    .player {
+        padding: 0;
+    }
+}
+
+@media (max-height: 125px) {
+    .header {
+        display: none;
+    }
+    .main-container {
+        display: none;
+    }
+    body, html {
+        overflow: hidden;
+    }
+}
+
+// Hide all scroll bars on screens bigger than 720x342px.
+@media (min-height: 340px) and (min-width: 720px) {
+    body, html {
+        overflow: hidden;
+    }
+}
+
+// Volume Slider Responsive Code
+@media (max-width: 520px) {
+    .player .volume-control {
+        margin: 0 225px 0 80px;
+    }
+    .player .volume-control .volume-slider .player-status {
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    .player .volume-control {
+        display: none;
+    }
+    .player {
+        text-align: center;
+    }
+    .player .playback {
+        display:        inline-block;
+        vertical-align: middle;
+        position:       static;
+    }
+    .player .playlists {
+        float:      none;
+        margin-top: 0;
+        padding:    0;
+    }
+}
+
+@media (max-width: 315px) {
+    .player .playlists {
+        display: none;
+    }
+}
