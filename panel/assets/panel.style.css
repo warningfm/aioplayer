@@ -1,0 +1,319 @@
+body {
+    background: #f3f4f5;
+    overflow-y: scroll;
+    overflow-x: auto;
+    padding:    0;
+}
+
+pre {
+    font-size:   13px;
+    font-family: 'Consolas', monospace;
+    line-height: 150%;
+}
+
+/* OTHER CSS STYLES */
+.intro.small {
+    /*background: url("showcase-bg.jpg") center center;*/
+    background:      #36459b;
+    text-align:      center;
+    background-size: cover;
+    border-bottom:   0;
+}
+
+.intro.small h2 {
+    color:       #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.intro.small h3 {
+    color:     #fff;
+    font-size: 15px;
+}
+
+.intro.small > .content {
+    padding: 30px 15px;
+}
+
+.menu {
+    background: #fff;
+    color:      #616161;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
+    margin:     0 0 15px;
+}
+
+ul.tabs {
+    min-height:    42px;
+    border-radius: 3px;
+    border:        0;
+    margin:        0;
+}
+
+ul.tabs li a {
+    line-height:   42px;
+    padding:       0 22px;
+    color:         #616161;
+    font-size:     13px;
+    float:         none;
+    background:    transparent;
+    border-radius: 0;
+    margin:        0;
+}
+
+ul.tabs li {
+    margin: 0;
+}
+
+ul.tabs li a .label, ul.tabs li a .badge {
+    background:  #616161 !important;
+    font-weight: 400;
+}
+
+ul.tabs li:first-child a {
+    border-top-left-radius:    3px;
+    border-bottom-left-radius: 3px;
+}
+
+ul.tabs li a:hover {
+    background: #f0f0f0;
+}
+
+ul.tabs li a.active {
+    color:      #616161;
+    background: #f0f0f0;
+}
+
+.script-version {
+    margin-top:   12px;
+    margin-right: 15px;
+    color:        #616161;
+}
+
+.container.main {
+    padding: 10px 15px;
+}
+
+fieldset:first-child {
+    margin: 0;
+}
+
+legend .fa {
+    margin-right: 4px;
+}
+
+table.table thead th,
+table.table tbody td,
+table tr td {
+    vertical-align: middle;
+}
+
+table.table thead th .form-control-static,
+table.table tbody td .form-control-static,
+table.table tr td .form-control-static {
+    padding-top: 0;
+}
+
+table.hover tbody tr:hover {
+    background: transparent;
+}
+
+.alert {
+    line-height: 1.36;
+}
+
+.alert.alert-info a {
+    color:           #4d8796;
+    text-decoration: underline;
+}
+
+.alert.alert-icon > .fa:not(.fa-times) {
+    text-align: center;
+    font-size:  1.5em;
+    width:      25px;
+}
+
+.alert pre {
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap:   break-word;
+}
+
+/* Change Scrollbars for Webkit browsers */
+::-webkit-scrollbar {
+    width:  10px;
+    height: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background:            transparent;
+    border-radius:         5px;
+    -webkit-border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background:            #aaaaaa;
+    border-radius:         0;
+    -webkit-border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #8c8c8c;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: #cccccc;
+}
+
+/* AIO Specific styles */
+.commands-pre {
+    color:   #808080;
+    padding: 0;
+    margin:  0;
+}
+
+.commands-pre pre {
+    padding:    0;
+    margin:     0;
+    overflow:   auto;
+    max-height: 580px;
+}
+
+.commands-pre pre .divider:first-child {
+    display: none;
+}
+
+.commands-pre pre .divider {
+    margin:     4px 0 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+legend {
+    margin-bottom: 15px;
+    padding:       12px 5px 8px;
+    font-size:     1.25em;
+}
+
+table.sortable-table tr td {
+    cursor: move;
+}
+
+tbody .handle {
+    cursor: move;
+}
+
+.panel table:last-child {
+    margin: 0;
+}
+
+table tr:last-child td {
+    border: 0;
+}
+
+/* Artwork manager & Crop feature */
+.artwork-manager {
+    max-height:    600px;
+    margin-bottom: 15px;
+    overflow:      auto;
+}
+
+.artwork-manager table.table thead th,
+.artwork-manager table.table tbody td,
+.artwork-manager table.table tr td {
+    padding: 6px 10px !important;
+}
+
+.image-preview {
+    border-radius: 3px;
+    background:    #fff;
+    transition:    visibility 100ms ease-out, opacity 100ms ease-out, -webkit-transform 150ms ease-out;
+    transition:    visibility 100ms ease-out, opacity 100ms ease-out, transform 150ms ease-out;
+    transition:    visibility 100ms ease-out, opacity 100ms ease-out, transform 150ms ease-out, -webkit-transform 150ms ease-out;
+    position:      fixed;
+    opacity:       0;
+    -webkit-transform:     scale(0.95);
+            transform:     scale(0.95);
+    visibility:    hidden;
+    overflow:      hidden;
+    z-index:       999;
+    box-shadow:    1px 1px 8px rgba(0, 0, 0, 0.25);
+}
+
+.image-preview.in {
+    opacity:    1;
+    visibility: visible;
+    -webkit-transform:  scale(1);
+            transform:  scale(1)
+}
+
+.croparea {
+    display:    block;
+    position:   relative;
+    overflow:   hidden;
+    width:      140px;
+    height:     140px;
+    border:     1px solid #e5e5e5;
+    margin:     10px 0 5px;
+    background: #fff;
+}
+
+.croparea img {
+    display:  block;
+    position: absolute;
+}
+
+.croparea .label {
+    display: inline;
+}
+
+.panel {
+    margin:             15px 0 25px;
+    background-color:   #fff;
+    border:             1px solid transparent;
+    border-radius:      4px;
+    box-shadow:         0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.panel > .heading {
+    display:   block;
+    padding:   20px 25px;
+    font-size: 18px;
+    color:     #37474f;
+    margin:    0;
+}
+
+.panel-content {
+    display:                     block;
+    position:                    absolute;
+    left:                        250px;
+    right:                       0;
+    bottom:                      0;
+    top:                         60px;
+    padding:                     20px 25px;
+    height:                      auto;
+    overflow-y:                  auto;
+    overflow-x:                  visible;
+    z-index:                     1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility:         hidden;
+    -webkit-transform:           translate3d(0, 0, 0);
+    transform:                   translate3d(0, 0, 0);
+    transition:                  left 250ms ease-out;
+}
+
+.panel > .content {
+    padding: 20px 25px;
+}
+
+.panel h4, .panel h5 {
+    padding: 0 0 6px;
+    margin:  0;
+}
+
+.panel .heading + .content {
+    padding-top: 0;
+}
+
+.panel .heading + .content.form-content {
+    padding-top: 20px;
+}
