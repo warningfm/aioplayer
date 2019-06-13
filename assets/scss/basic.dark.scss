@@ -1,0 +1,84 @@
+// Imports (other required SCSS files)
+@import 'reset-browsers.scss';
+@import 'basic.style.scss';
+
+
+/* This file will overwrite existing CSS styles with dark ones. The changable colors will stay the same as in light scheme. */
+body, html {
+	background: darken($bg-color, 50%);
+	color: #fff;
+}
+
+// White tooltips
+.css-hint {
+	&:before {
+		border-bottom-color: #fff;
+	}
+
+	&:after {
+		color: #363636;
+		background: #fff;
+	}
+}
+
+// Stats
+.stats {
+
+	.artist-image {
+		.share-area {
+			background: rgba(darken($bg-color, 45%), 0.75);
+		}
+	}
+
+	.onair {
+		color: #fff;
+
+		a { color: #fff; }
+
+		.time {
+			color: #f4f4f4;
+		}
+
+	}
+
+}
+
+// Player
+/* ================================================================================================== */
+// Now the player section
+.player {
+
+	// Volume control, including mute
+	.volume-control {
+
+		// Mute/Unmute, well the icon left of bar
+		.volume-icon {
+			svg {
+				fill: #fff;
+			}
+		}
+
+		// Now the slider
+		.volume-slider {
+			.vol-progress {
+				background: darken($bg-color, 35%);
+			}
+
+			// Status messages
+			.player-status {
+				color: #fff;
+			}
+
+		}
+
+	}
+
+
+	// Playlists for players, use sprite
+	.playlists {
+		span {
+			color: #fff;
+		}
+	}
+
+}

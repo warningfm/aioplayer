@@ -1,0 +1,889 @@
+// Imports (other required SCSS files)
+@import 'reset-browsers.scss';
+
+// Configure SASS options (Colors, Animations, Fonts etc...)
+$font-family: 'Roboto', sans-serif;
+$ease-out 	: cubic-bezier(0.25, 0.8, 0.25, 1);
+$ease-in  	: cubic-bezier(0.55, 0, 0.55, 0.2);
+
+// Other options
+$font-bold: 	300;	// Bold font weight
+$font-light: 	300;	// Light font weight
+
+// Configure color (for AIO Radio Control Panel compiler, this must be commented out!)
+$bg-color: #2196f3;
+$path: './../../assets/img/oldskin';
+$sprite: '#{$path}/sprite.png';
+/* ================================================================================================== */
+
+// Body & HTML styles
+body, html {
+	font-family: $font-family;
+	font-weight: $font-light;
+	font-size: 14px;
+	padding: 0;
+	margin: 0;
+	color: #fff;
+	background-color: #4e4e4e;
+	background: url('#{$path}/background.jpg') 0 0;
+
+	// Improve Font rendering
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+// Basic HTML styles
+a {
+	text-decoration: none;
+	color: inhert;
+	outline-style: none;
+	outline-width: 0;
+}
+
+b, strong {
+	font-weight: 600;
+}
+
+.css-hint {
+	position: relative;
+
+	&:before {
+		bottom: -2px;
+		margin-bottom: -15px;
+		left: 25px;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border-color: transparent;
+		border-bottom-color: rgba(#000, 0.85);
+		border-width: 5px;
+		margin-left: -5px;
+		z-index: 14;
+
+		// Performance & rendering fix
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		transform: translate3d(0, 0, 0);
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+
+	&:after {
+		background: #111;
+		background: rgba(#000,0.85);
+		border-radius: 3px;
+		color: #fff;
+		content: attr(data-title);
+		display: block;
+		left: 0;
+		bottom: -28px;
+		padding: 6px 8px;
+		position: absolute;
+		white-space: nowrap;
+		z-index: 15;
+		font-size: 13px;
+		z-index: 15;
+
+		// Performance & rendering fix
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		transform: translate3d(0, 0, 0);
+		-webkit-transform: translate3d(0, 0, 0);
+	}
+
+	&:after, &:before {
+		transition: all 250ms ease-out;
+		-webkit-transition: all 250ms ease-out;
+		transform: scale(0.8);
+		-webkit-transform: scale(0.8);
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	&:hover {
+
+		&:before, &:after {
+			transform: scale(1);
+			-webkit-transform: scale(1);
+			opacity: 1;
+			visibility: visible;
+		}
+
+		&:before {
+			margin-bottom: 0;
+		}
+
+	}
+
+}
+
+
+// Full screen preloader
+.preloader {
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	text-align: center;
+	font-size: 14px;
+	color: #2f2f2f;
+	background: rgba(#fafafa, 0.95);
+	transition: all 500ms $ease-out;
+	-webkit-transition: all 500ms $ease-out;
+	z-index: 999;
+
+	&.loadComplete { // Hide after load, animated
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	.text_area {
+		display: block;
+		position: absolute;
+		height: 50px;
+		left: 0;
+		right: 0;
+		top: 40%;
+		margin-top: -25px;
+	}
+
+}
+
+
+/* ================================================================================================== */
+// Header stylesheet
+.header {
+	display: block;
+	height: 50px;
+	color: #fff;
+	background: rgba(#fff, 0.1);
+	background: -webkit-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.1) 100%);
+	background: -ms-linear-gradient(top, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.1) 100%);
+	background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.1) 100%);
+	border-bottom: 1px solid rgba(0,0,0,0.10);
+	box-shadow: 0 0 3px rgba(#000,0.15);
+
+	// Logo, simple div
+	.logo {
+		float: left;
+		display: inline-block;
+		margin: 0 0 0 8px;
+		height: 50px;
+		line-height: 50px;
+
+		img {
+			vertical-align: middle;
+		}
+	}
+
+	// Menus, including setup etc...
+	ul {
+		position: absolute;
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		right: 0;
+		font-size: 0; /* FIX SPACING */
+
+		> li {
+			position: relative;
+			display: inline-block;
+			padding: 0;
+			margin: 0;
+
+			> a {
+				display: inline-block;
+				font-weight: $font-light;
+				width: 55px;
+				height: 50px;
+				transition: background-color 350ms $ease-out;
+				-webkit-transition: background-color 350ms $ease-out;
+				text-align: center;
+				line-height: 50px;
+				border-left: 1px solid rgba(255,255,255,0.05);
+				box-shadow: -1px 0 0 rgba(0,0,0,0.1);
+
+				img {
+					vertical-align: middle;
+				}				
+
+				&:hover, &.active {
+					background: rgba(#fff, 0.1);
+				}
+
+			}
+
+			// Settings & Channels
+			> ul {
+				position: absolute;
+				z-index: 99;
+				top: 75%;
+				margin-top: 1px;
+				right: 0;
+				min-width: 200px;
+				font-size: 13px;
+				opacity: 0;
+				visibility: hidden;
+				border-bottom-left-radius: 3px;
+				border-bottom-right-radius: 3px;
+				-webkit-transition: 
+					top 250ms $ease-out,
+					opacity 350ms $ease-out,
+					visibility 350ms $ease-out;
+				transition: 
+					top 250ms $ease-out,
+					opacity 350ms $ease-out,
+					visibility 350ms $ease-out;
+				box-shadow: 0 3px 5px rgba(#000, 0.15);
+				background: url('#{$path}/background.jpg') -700px 0;
+
+				// Add scrollbars if we go over content
+				overflow-y: auto;
+				overflow-x: hidden;
+				max-height: 180px;
+
+				// Performance & rendering fix
+				-webkit-backface-visibility: hidden;
+				backface-visibility: hidden;
+				-webkit-transform: translate3d(0, 0, 0);
+				transform: translate3d(0, 0, 0);
+
+				&.active {
+					visibility: visible;
+					opacity: 1;
+					top: 100%;
+				}
+
+				li {
+					display: block;
+					padding: 10px 25px;
+					margin: 0;
+					padding: 0;
+
+					> a {
+						display: block;
+						padding: 10px 15px;
+						line-height: normal;
+						width: auto;
+						height: auto;
+						text-align: left;
+						color: rgba(#fff, 0.75);
+						text-decoration: none;
+						white-space: nowrap;
+
+						&.active {
+							color: #fff;
+						}
+
+						&:hover {
+							background: rgba(#fff, 0.15);
+						}
+					}
+				}
+
+
+			}
+
+		}
+
+
+	}
+
+	// End header
+}
+
+
+/* ================================================================================================== */
+// Stats (Artist Image, Playing Artist, Title and Song time)
+.stats {
+	display: block;
+	margin: 35px 0 25px;
+	text-align: center;
+
+	// Image, align middle vertically
+	.artist-image {
+		display: inline-block;
+		position: relative;
+		margin: 0 10px;
+		width: 140px;
+		height: 140px;
+		vertical-align: middle;
+		overflow: hidden;
+		box-shadow: 2px 2px 5px rgba(#000, 0.1);
+
+		.share-area {
+			position: absolute;
+			z-index: 5;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			opacity: 0;
+			visibility: hidden;
+			background: rgba(#000, 0.75);
+			transition: all 200ms ease-out;
+			-webkit-transition: all 200ms ease-out;
+			transform: scale(1.5);
+			-webkit-transform: scale(1.5);
+
+			a {
+				margin: 0 3px;
+				transition: opacity 200ms $ease-out;
+				-webkit-transition: opacity 200ms $ease-out;
+				opacity: 0.75;
+
+				&:hover {
+					opacity: 1;
+				}
+
+				&.facebook { 
+					position: absolute;
+					left: -100px;
+					transition: left 400ms $ease-out;
+					-webkit-transition: left 400ms $ease-out;
+				}
+
+				&.twitter { 
+					position: absolute;
+					right: -100px;
+					transition: right 400ms $ease-out;
+					-webkit-transition: right 400ms $ease-out;
+				}
+
+			}
+
+			span {
+				display: block;
+				font-size: 15px;
+				text-align: center;
+				margin: 40px 0 10px;
+			}
+		}
+
+		.artist-img {
+			z-index: 1;
+			position: absolute;
+			top: 0;
+			transition: all 400ms $ease-out;
+			-webkit-transition: all 400ms $ease-out;
+		}
+
+		// Hover effects
+		&:hover {
+
+			.share-area {
+				opacity: 1;
+				visibility: visible;
+				transform: scale(1);
+				-webkit-transform: scale(1);
+
+				a.facebook {
+					left: 25px;
+					transform: rotate(360deg);
+					-webkit-transform: rotate(360deg);
+				}
+
+				a.twitter {
+					right: 25px;
+					transform: rotate(360deg);
+					-webkit-transform: rotate(360deg);
+				}
+
+			}
+
+			.artist-img {
+				transform: scale(1.25);
+				-webkit-transform: scale(1.25);
+			}
+
+		}
+
+		.artist-preload {
+			position: absolute;
+			right: 0;
+			left: 0;
+			height: 4px;
+			bottom: 0;
+			z-index: 6;
+			background-color: #159756;
+			-webkit-animation: preloaderbackground linear 3s infinite;
+			animation: preloaderbackground linear 3s infinite;
+
+			&:after, &:before {
+				display: block;
+				position: absolute;
+				bottom: 0;
+				z-index: 9;
+				width: 0;
+				height: 4px;
+				background: #afa;
+				-webkit-animation: preloaderfront ease-in 3s infinite;
+				animation: preloaderfront ease-in 3s infinite;
+				content: '';
+			}
+
+			&:after {
+				right: 50%;
+			}
+
+			&:before {
+				left: 50%;
+			}
+
+		}
+	}
+
+	// Now the track info, middle valign
+	.onair {
+		display: inline-block;
+		margin: 0 10px;
+		vertical-align: middle;
+		text-align: left;
+		color: #fff;
+		font-weight: $font-bold;
+
+		a { color: #fff; }
+
+		.artist {
+			font-size: 18pt;
+		}
+
+		.title {
+			font-size: 16pt;
+		}
+
+		.time {
+			color: #f0f0f0;
+			font-weight: $font-light;
+			font-size: 11pt;
+		}
+
+	}
+
+}
+
+
+/* ================================================================================================== */
+// Now the player section
+.player {
+	padding: 15px 0 5px;
+	max-width: 720px;
+	height: 78px;
+	background: url($sprite) no-repeat center -25px;
+	margin: 0 auto;
+	position: relative;
+
+	// Play/Stop
+	.playback {
+		position: absolute;
+		left: 0;
+		padding: 4px 10px 0;
+		width: 68px;
+		height: 78px;
+		text-align: center;
+		overflow: hidden;
+
+		// Play and Stop buttons
+		.play, .stop {
+			cursor: pointer;
+			float: left;
+
+			svg { display: none; }
+
+		}
+
+		.play {
+			display: inline-block;
+			position: relative;
+			width: 72px;
+			height: 72px;
+			background: url($sprite) no-repeat -1px -210px;
+			cursor: pointer;
+			vertical-align: bottom;
+		}
+
+		.play:hover {
+			background-position: -83px -210px;
+		}
+
+		.stop {
+			display: inline-block;
+			position: relative;
+			width: 72px;
+			height: 72px;
+			background: url($sprite) no-repeat -165px -210px;
+			cursor: pointer;
+			vertical-align: bottom;
+		}
+
+		.stop:hover {
+			background-position: -247px -210px;
+		}
+
+		.stop:before {
+			display: block;
+			width: 72px;
+			height: 72px;
+			position: absolute;
+			content: " ";
+			left: 0;
+			top: 0;
+			background: transparent url($sprite) no-repeat -330px -210px;
+			-webkit-animation: playspin 3s infinite linear;
+			-moz-animation: playspin 3s infinite linear;
+			-o-animation: playspin 3s infinite linear;
+			-ms-animation: playspin 3s infinite linear;
+			animation: playspin 3s infinite linear;
+		}
+
+	}
+
+
+	// Volume control, including mute
+	.volume-control {
+		position: absolute;
+		padding: 25px 10px;
+		vertical-align: middle;
+		left: 0;
+		right: 0;
+		height: 28px;
+		margin: 0 245px 0 90px;
+
+		// Mute/Unmute, well the icon left of bar
+		.volume-icon {
+			position: absolute;
+			left: 10px;
+			vertical-align: middle;
+			cursor: pointer;
+			height: 28px;
+
+			svg {
+				fill: #fff;
+			}
+		}
+
+		// Now the slider
+		.volume-slider {
+			position: absolute;
+			vertical-align: middle;
+			left: 40px;
+			right: 0;
+			top: 50%;
+			margin-top: -4px;
+
+			.vol-progress {
+				margin: 0 5px;
+				width: 100%;
+				height: 8px;
+				padding: 1px;
+				background: #ccc;
+				cursor: pointer;
+				background: rgba(0, 0, 0, 0.2);
+				box-shadow: inset 0 1px 2px rgba(#000, 0.15), 0 1px 0 rgba(#fff, 0.05);
+				border-radius: 3px;
+
+				// Progressbar
+				.vol-bar {
+					position: relative;
+					display: block;
+					height: 100%;
+					background: rgba(#0dff00, 0.75);
+					width: 50%;
+					border-radius: 3px;
+				}
+
+				// Circle to push/pull
+				.circle-control {
+					position: absolute;
+					top: -6px;
+					right: -6px;
+					display: block;
+					width: 23px;
+					height: 23px;
+					background: transparent url($sprite) no-repeat -160px 0;
+					transition: opacity 250ms $ease-out;
+					-webkit-transition: opacity 250ms $ease-out;
+				}
+
+				&:hover .circle-control {
+					cursor: pointer;
+					opacity: 0.95;
+				}
+
+			}
+
+			// Status messages
+			.player-status {
+				color: #fff;
+				font-size: 10pt;
+				position: absolute;
+				text-align: center;
+				width: 100%;
+				top: 100%;
+				margin-top: 10px;
+			}
+
+		}
+
+	}
+
+
+	// Playlists for players, use sprite
+	.playlists {
+		display: inline-block;
+		vertical-align: middle;
+		width: 220px;
+		float: right;
+		height: 55px;
+		margin: 6px 5px 0 0;
+		text-align: center;
+		background: url($sprite) no-repeat 0 -340px;
+
+		// MSG
+		span {
+			color: #fff;
+			display: block;
+			font-size: 10pt;
+			margin: 0 0 8px;
+		}
+
+		a {
+			display: inline-block;
+			position: relative;
+			top: 0;
+			margin: 0 6px;
+			transition: all 200ms $ease-out;
+			-webkit-transition: all 200ms $ease-out;
+			opacity: 0.75;
+
+			&:hover {
+				opacity: 1;
+				transform: scale(1.05);
+				-webkit-transform: scale(1.05);
+				top: -4px;
+			}
+		}
+
+		// End playlists
+
+	}
+
+}
+
+// Animations
+@-webkit-keyframes preloaderbackground {
+	0%, 24.9% {
+		background-color: #159756;
+	}
+	25%, 49.9% {
+		background-color: #da4733;
+	}
+	50%, 74.9% {
+		background-color: #3b78e7;
+	}
+	75%, 100% {
+		background-color: #fdba2c;
+	}
+}
+
+@keyframes preloaderbackground {
+	0%, 24.9% {
+		background-color: #159756;
+	}
+	25%, 49.9% {
+		background-color: #da4733;
+	}
+	50%, 74.9% {
+		background-color: #3b78e7;
+	}
+	75%, 100% {
+		background-color: #fdba2c;
+	}
+}
+
+@-webkit-keyframes preloaderfront {
+	0% {
+		width: 0;
+		background-color: #da4733;
+	}
+	24.9% {
+		width: 50%;
+		background-color: #da4733;
+	}
+	25% {
+		width: 0;
+		background-color: #3b78e7;
+	}
+	49.9% {
+		width: 50%;
+		background-color: #3b78e7;
+	}
+	50% {
+		width: 0;
+		background-color: #fdba2c;
+	}
+	74.9% {
+		width: 50%;
+		background-color: #fdba2c;
+	}
+	75% {
+		width: 0%;
+		background-color: #159756;
+	}
+	100% {
+		width: 50%;
+		background-color: #159756;
+	}
+}
+
+@keyframes preloaderfront {
+	0% {
+		width: 0;
+		background-color: #da4733;
+	}
+	24.9% {
+		width: 50%;
+		background-color: #da4733;
+	}
+	25% {
+		width: 0;
+		background-color: #3b78e7;
+	}
+	49.9% {
+		width: 50%;
+		background-color: #3b78e7;
+	}
+	50% {
+		width: 0;
+		background-color: #fdba2c;
+	}
+	74.9% {
+		width: 50%;
+		background-color: #fdba2c;
+	}
+	75% {
+		width: 0%;
+		background-color: #159756;
+	}
+	100% {
+		width: 50%;
+		background-color: #159756;
+	}
+}
+
+// Spinner animation
+@-webkit-keyframes playspin {
+	0% { -webkit-transform: rotate(0deg);}
+	100% { -webkit-transform: rotate(360deg);}
+}
+@-moz-keyframes playspin {
+	0% { -moz-transform: rotate(0deg);}
+	100% { -moz-transform: rotate(360deg);}
+}
+@-o-keyframes playspin {
+	0% { -o-transform: rotate(0deg);}
+	100% { -o-transform: rotate(360deg);}
+}
+@-ms-keyframes playspin {
+	0% { -ms-transform: rotate(0deg);}
+	100% { -ms-transform: rotate(360deg);}
+}
+@keyframes playspin {
+	0% { transform: rotate(0deg);}
+	100% { transform: rotate(360deg);}
+}
+
+// Responsive design
+@media (max-width: 640px) {
+	.stats { 
+		margin: 20px 0 15px;
+
+		.artist-image {
+			margin: 0 0 10px;
+		}
+
+		.onair {
+			display: block;
+			text-align: center;
+			margin: 0 5px 10px;
+
+			.artist { 
+				display: inline; 
+				font-size: 16px; 
+
+				&:after {
+					content: ' - '; 
+				}
+			}
+
+			.title { 
+				display:inline; 
+				font-size: 16px; 
+			}
+
+			.time { 
+				display: none !important;
+				visibility: hidden;
+			}
+
+		}
+	}
+}
+
+@media (min-height: 125px) and (max-height: 339px) and (min-width: 620px) {
+	.player .playback { padding: 0 5px; }
+	.stats { 
+		margin: 20px 0 15px; 
+
+		.artist-image { 
+			width: 120px; 
+			height: 120px; 
+
+			img#artist-img { 
+				width: 120px !important; 
+				height: 120px !important; 
+			}
+
+			// Change position of hovered facebook/twitter buttons
+			&:hover .share-area a {
+
+				&.facebook {
+					left: 18px;
+				}
+
+				&.twitter {
+					right: 18px;
+				}
+
+			}
+		}
+	}
+
+}
+
+@media (max-height:125px) {
+	.stats { display: none; }
+	.header { display: none; }
+	body, html {overflow: hidden;}
+	.player { padding: 2px 0; background-position: center -32px; }
+}
+
+// Hide all scrollbars on screens bigger than 720x342px.
+@media (min-height: 340px) and (min-width: 720px) {
+	body,html { overflow: hidden; }
+}
+
+// Volume Slider Responsive Code
+@media (max-width: 520px) {
+	.player .volume-control .volume-slider .player-status { display: none; }
+}
+
+@media (max-width: 400px) {
+	.player .volume-control { display: none; }
+}
