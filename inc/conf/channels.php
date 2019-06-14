@@ -1,7 +1,7 @@
 <?php $channels = array (
   0 => 
   array (
-    'name' => 'Warning FM',
+    'name' => 'Radio Bintang Tenggara',
     'logo' => NULL,
     'skin' => '',
     'show-time' => true,
@@ -18,7 +18,7 @@
       'url' => 'http://cast4.servcast.net:8532',
       'auth' => '336336223',
       'sid' => '1',
-      'sc-history' => false,
+      'sc-history' => true,
     ),
   ),
 );
