@@ -17,7 +17,7 @@
   'title_default' => 'Unknown Track',
   'artist_maxlength' => '0',
   'title_maxlength' => '28',
-  'stats_refresh' => '15',
+  'stats_refresh' => '5',
   'track_regex' => '(?P<artist>[^-]*)[ ]?-[ ]?(?P<title>.*)',
   'api_artist' => 'itunes',
   'images_size' => '500',
